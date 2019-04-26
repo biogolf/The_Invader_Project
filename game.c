@@ -35,6 +35,8 @@ void start();
 void play();
 void win();
 void lose();
+void background();
+void drawStar(int spos);
 
 int myx = 0, myy = -25, bullet_x, bullet_y=-100, shoot=0, myHP = 5, myScore = 0;
 float enemy_x[103], enemy_y[103] = {0}, enemy_speed = 0.3, enemy_camouflage = 0; 
@@ -42,6 +44,14 @@ int enemy_amount=0, enemy_status[103] = {0};
 int timepass = 0;
 char HP[100], score[100];
 int dis_start = 1, dis_play = 0, dis_win = 0, dis_lose = 0;
+float star_x[32] = {-49, -33, -27, -10, -2, 22, 30, 40,
+                    -37, -22, -13, 3, 12, 26, 35, 49,
+                    -44, -29, -19, 0, 5, 19, 29, 39,
+                    -47, -38, -24, -5, 7, 14, 33, 45};
+float star_y[32] = {-50, -28, -32, -43, -37, -26, -45, -30,
+                    -12, -3, -24, -17, -10, -5, -20, -15,
+                    2, 17, 12, 22, 8, 25, 15, 5,
+                    33, 42, 26, 47, 29, 38, 45, 30};
 
 void init()
 {
@@ -68,7 +78,7 @@ int main(int argc, char **argv)
 void display()
 {
   glClear(GL_COLOR_BUFFER_BIT);
-
+  background();
   if (dis_start == 1)
   {
     start();
@@ -386,6 +396,33 @@ void myBullet(){
   glPopMatrix();
 }
 
+void background()
+{
+  for (int s = 0; s < 32; ++s)
+  {
+    drawStar(s);
+    star_x[s] += 0.1;
+    if (star_x[s] > 52)
+    {
+      star_x[s] = -52;
+    }
+  }
+}
+
+void drawStar(int spos)
+{
+  glPushMatrix();//draw bullet
+    glTranslatef(star_x[spos],star_y[spos],0);
+    glBegin(GL_POLYGON);
+      glColor3f(1.0,1.0,1.0);
+      glVertex2f(1.0,1.0);
+      glVertex2f(1.0,0.0);
+      glVertex2f(0.0,0.0);
+      glVertex2f(0.0,1.0);
+    glEnd();
+  glPopMatrix();
+}
+
 void timer(int what)
 {
   glutPostRedisplay();
@@ -463,3 +500,4 @@ void randomEnemy()
     enemy_x[j] = (rand()%80)-40;
   }
 }
+

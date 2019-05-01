@@ -5,7 +5,7 @@
 * หน้าเมนูเกม
 ![](/image/game.png)
 
-* หน้าในเล่นเกม
+* หน้าในเกม
 ![](/image/game2.png)
 
 * คลิปสาธิตการเล่น https://www.youtube.com/watch?v=oVoGqUPdJyw
